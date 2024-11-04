@@ -1,0 +1,73 @@
+<div class="container mt-5">
+  <h2 class="text-center mb-4">Employee List</h2>
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Position</th>
+        <th>Review Period</th>
+        <th>Feedback</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let emp of employees">
+        <td>{{ emp._id }}</td>
+        <td>{{ emp.name }}</td>
+        <td>{{ emp.position }}</td>
+        <td>{{ emp.reviewPeriod }}</td>
+        <td>{{ emp.feedback }}</td>
+        <td>
+          <button class="btn btn-primary btn-sm" (click)="openUpdateModal(emp)">View / Update</button>
+          <button class="btn btn-danger btn-sm" (click)="deleteEmployee(emp._id)">Delete</button>
+
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <button class="btn btn-primary btn-sm" (click)="openAddModal()">Add Employee</button><br><br>
+  <button class="btn btn-primary btn-sm" routerLink="/admin-dashboard">Back</button>
+
+  <!-- Modal for Adding/Editing Employee -->
+  <div class="modal fade" id="employeeModal" tabindex="-1" aria-labelledby="employeeModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="employeeModalLabel">{{ isEditing ? 'Edit Employee' : 'Add Employee' }}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" [(ngModel)]="selectedEmployee.name" placeholder="Name" id="name" required>
+          </div>
+          <div class="mb-3">
+            <label for="position" class="form-label">Position</label>
+            <input type="text" class="form-control" [(ngModel)]="selectedEmployee.position" placeholder="Position" id="position" required>
+          </div>
+          <div class="mb-3">
+            <label for="reviewPeriod" class="form-label">Review Period</label>
+            <input type="text" class="form-control" [(ngModel)]="selectedEmployee.reviewPeriod" placeholder="Review Period" id="reviewPeriod" required>
+          </div>
+          <!-- Feedback field is read-only when editing -->
+          <div class="mb-3" *ngIf="isEditing">
+            <label for="feedback" class="form-label">Feedback</label>
+            <textarea class="form-control" [(ngModel)]="originalFeedback" placeholder="Feedback" id="feedback" readonly></textarea>
+          </div>
+          <div class="mb-3" *ngIf="!isEditing">
+            <label for="feedback" class="form-label">Feedback</label>
+            <textarea class="form-control" [(ngModel)]="selectedEmployee.feedback" placeholder="Feedback" id="feedback" required></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" (click)="saveEmployee()">{{ isEditing ? 'Update' : 'Add' }}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

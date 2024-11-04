@@ -1,0 +1,37 @@
+<div class="container mt-5">
+  <div class="card">
+    <div class="card-header">
+      <h5>Review Form</h5>
+    </div>
+    <div class="card-body">
+      <form (ngSubmit)="submitForm()">
+         
+        <div class="mb-3">
+          <label for="ename" class="form-label">Name</label>
+          <input type="text" id="ename" class="form-control" [(ngModel)]="ename" name="ename" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="reviewTitle" class="form-label">Feedback</label>
+          <input type="text" id="reviewTitle" class="form-control" [(ngModel)]="reviewTitle" name="reviewTitle" required>
+        </div>
+      
+        <div class="mb-3">
+          <label for="dueDate" class="form-label">Due Date</label>
+          <input type="date" id="dueDate" class="form-control" [(ngModel)]="dueDate" name="dueDate" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="status" class="form-label">Status</label>
+          <select id="status" class="form-select" [(ngModel)]="status" name="status" required>
+            <option value="Pending">Pending</option>
+            <option value="Completed">Completed</option>
+            <option value="In Progress">In Progress</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>

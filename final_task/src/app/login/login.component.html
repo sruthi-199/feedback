@@ -1,0 +1,31 @@
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form [formGroup]="logindata" (ngSubmit)="onSubmit()">
+                <h2 class="text-center">Please Login</h2>
+
+                <div class="form-group mb-3">
+                    <label>Email Address:</label>
+                    <input formControlName="uemail" type="email" placeholder="Enter Email" class="form-control">
+                    <span class="text-danger" *ngIf="logindata.get('uemail')?.touched && !logindata.get('uemail')?.valid">
+                        Enter a valid Email id
+                    </span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label>Password:</label>
+                    <input formControlName="upass" type="password" placeholder="Enter Password" class="form-control">
+                    <span class="text-danger" *ngIf="logindata.get('upass')?.touched && !logindata.get('upass')?.valid">
+                        Enter correct Password
+                    </span>
+                </div>
+
+                <div class="text-center mb-3">
+                    <span>Create a new account? <a routerLink="/register">Register</a></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100">Login</button>
+            </form>
+        </div>
+    </div>
+</div>

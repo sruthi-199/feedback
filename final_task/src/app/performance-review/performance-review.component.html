@@ -1,0 +1,47 @@
+<div class="container mt-5">
+  <h2 class="text-center mb-4">Performance View</h2>
+  
+  <table class="table table-bordered">
+      <thead>
+          <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Position</th>
+              <th>Review Period</th>
+              <th>Feedback</th>
+              <th>Status</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let emp of employees">
+              <td>{{ emp._id }}</td>
+              <td>{{ emp.name }}</td>
+              <td>{{ emp.position }}</td>
+              <td>{{ emp.reviewPeriod }}</td>
+              
+              <td>
+                  <div *ngIf="emp._id === editingEmployeeId">
+                      <input type="text" [(ngModel)]="emp.feedback" class="form-control" />
+                  </div>
+                  <div *ngIf="emp._id !== editingEmployeeId">
+                      {{ emp.feedback }}
+                      <img src="edit.webp" alt="edit" height="20px" width="20px" (click)="enableEditing(emp)" style="cursor: pointer;" />
+                  </div>
+              </td>
+              
+              <td>
+                  <select [(ngModel)]="emp.status" class="form-select">
+                      <option value="">Select Status</option>
+                      <option value="Pending">Pending</option>
+                      <option value="Completed">Completed</option>
+                      <option value="In Progress">In Progress</option>
+                  </select>
+              </td>
+          </tr>
+      </tbody>
+  </table>
+  
+  <button (click)="updateFeedback()" class="btn btn-primary mt-3">Submit</button>
+  <br><br>
+  <button class="btn btn-dark" routerLink="/admin-dashboard">Back</button>
+</div>

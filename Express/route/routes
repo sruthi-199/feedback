@@ -1,0 +1,16 @@
+// routes.js
+
+const express = require('express');
+const adminController = require('../src/student/adminController');                                                                                         
+const studentController = require('../src/student/studentController');
+const router = express.Router();
+
+// Student Routes
+router.post('/student/login', studentController.loginStudentControllerFn);
+router.post('/student/create', studentController.createStudentControllerFn);
+router.get('/student/verify', studentController.verifyStudentControllerFn);
+
+// Admin Routes
+router.post('/admin/login', adminController.loginAdminControllerFn);
+
+module.exports = router;

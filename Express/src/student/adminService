@@ -1,0 +1,31 @@
+// src/admin/adminService.js
+
+const adminModel = require('./adminModel');
+var key = '123456789asddfffff';
+var encryptor = require('simple-encryptor')(key);
+
+module.exports.loginAdminDBService = (adminDetails) => {
+    return new Promise(function (resolve, reject) {
+        adminModel.findOne({ username: adminDetails.username }, function (error, result) {
+            if (error) {
+                reject({ status: false, msg: "Error occurred during login" });
+            } else {
+                if (result) {
+                    var decrypted = encryptor.decrypt(result.password);
+                    console.log("Decrypted password:", decrypted);
+                    console.log("Provided password:", adminDetails.password);
+
+                    if (decrypted === adminDetails.password) {
+                        resolve({ status: true, msg: "Login successful" });
+                    } else {
+                        console.log("Password does not match");
+                        reject({ status: false, msg: "Invalid credentials" });
+                    }
+                } else {
+                    console.log("Admin not found");
+                    reject({ status: false, msg: "Admin not found" });
+                }
+            }
+        });
+    });
+};

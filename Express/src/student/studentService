@@ -1,0 +1,54 @@
+var studentModel = require('./studentModel');
+var key = '123456789asddfffff';
+var encryptor = require('simple-encryptor')(key);
+
+// Create a new student in the database
+module.exports.createStudentDBService = async (studentDetails) => {
+    try {
+        // Check if the email already exists
+        const existingStudent = await studentModel.findOne({ uemail: studentDetails.uemail });
+        if (existingStudent) {
+            return { status: false, message: 'Email already exists' };
+        }
+
+        // Create a new student model instance
+        var studentModelData = new studentModel();
+        studentModelData.ufname = studentDetails.ufname;
+        studentModelData.ulname = studentDetails.ulname;
+        studentModelData.uemail = studentDetails.uemail;
+
+        // Encrypt the password
+        var encrypted = encryptor.encrypt(studentDetails.upass);
+        studentModelData.upass = encrypted;
+
+        // Save the student data to the database
+        const savedStudent = await studentModelData.save();
+        return { status: true, message: 'Student created successfully', data: savedStudent };
+        
+    } catch (error) {
+        console.error(error);
+        return { status: false, message: 'Error creating student' };
+    }
+};
+
+// Login student and verify credentials
+module.exports.loginStudentDBService = (studentDetails) => {
+    return new Promise(function myFn(resolve, reject) {
+        studentModel.findOne({ uemail: studentDetails.uemail }, function getresult(errorvalue, result) {
+            if (errorvalue) {
+                reject({ status: false, msg: "login Invalid Data" });
+            } else {
+                if (result != undefined && result != null) {
+                    var decrypted = encryptor.decrypt(result.upass);
+                    if (decrypted == studentDetails.upass) {
+                        resolve({ status: true, msg: "login validate successfully" });
+                    } else {
+                        reject({ status: false, msg: "login validate is invalid" });
+                    }
+                } else {
+                    reject({ status: false, msg: "login error details" });
+                }
+            }
+        });
+    });
+};

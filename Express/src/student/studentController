@@ -1,0 +1,55 @@
+// src/student/studentController.js
+const studentModel = require('./studentModel');
+var studentService = require('./studentService');
+
+var createStudentControllerFn = async (req, res) => {
+   try {
+       console.log(req.body);
+       const status = await studentService.createStudentDBService(req.body);
+       
+       if (status.status) {
+           res.send({ "status": true, "message": status.message, "data": status.data });
+       } else {
+           res.send({ "status": false, "message": status.message });
+       }
+   } catch (error) {
+       console.log(error);
+       res.send({ "status": false, "message": "form invalid" });
+   }
+};
+
+
+var loginStudentControllerFn = async (req, res) => {
+    try {
+        console.log(req.body);
+        const result = await studentService.loginStudentDBService(req.body);
+
+        if (result.status) {
+            res.send({ "status": true, "message": result.msg });
+        } else {
+            res.send({ "status": false, "message": result.msg }); // Ensure this is defined in your service
+        }
+    } catch (error) {
+        console.log(error);
+        // Indicating the user needs to register
+        res.send({ "status": false, "message": "Please register the details." });
+    }
+};
+
+
+// New verification function
+var verifyStudentControllerFn = async (req, res) => {
+    const { email } = req.query; // Get the email from query parameters
+    try {
+        const student = await studentModel.findOne({ uemail: email });
+        if (student) {
+            res.send({ status: true, data: student });
+        } else {
+            res.send({ status: false, message: "Student not found" });
+        }
+    } catch (error) {
+        res.send({ status: false, message: "Error fetching data" });
+    }
+};
+
+module.exports = { createStudentControllerFn, loginStudentControllerFn, verifyStudentControllerFn };

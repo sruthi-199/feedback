@@ -1,0 +1,22 @@
+<div *ngIf="feedbacks.length === 0">
+  No feedbacks available.
+</div>
+
+<table *ngIf="feedbacks.length > 0" class="feedback-table">
+  <thead>
+    <tr>
+      <th>Employee Name</th>
+      <th>Review Title</th>
+      <th>Due Date</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let feedback of feedbacks">
+      <td>{{ feedback.ename }}</td>
+      <td>{{ feedback.reviewTitle }}</td>
+      <td>{{ feedback.dueDate | date: 'shortDate' }}</td> <!-- Adjust format if needed -->
+      <td>{{ feedback.status }}</td>
+    </tr>
+  </tbody>
+</table>

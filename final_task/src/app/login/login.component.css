@@ -1,0 +1,75 @@
+.form{
+    background-color: lightgrey;
+    border: 150px;
+    width: 370px;
+    height: 393px;
+    top: 20%;
+    position:absolute;
+    box-sizing: border-box;
+    border-radius: 5px;
+  }
+  .login{
+    text-align: center;
+    color: green;
+  }
+  input[type=text] {
+    width: 320px;
+    padding: 9px 20px;
+    margin:  0px 0px 0px 27px ;
+    /* display: inline-block; */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    
+  }
+  input[type=email] {
+    width: 320px;
+    padding: 9px 20px;
+    margin:  0px 0px 0px 27px ;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    
+  }
+  .text{
+    font-size: 17px;
+    padding: 9px 20px;
+    margin:  0px 0px 0px 7px ;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+ 
+  .keyp{
+    position: absolute;
+    left: 317px;
+    margin-top:-40px;
+  }
+  .keye{
+    position: absolute;
+    left: 317px;
+    margin-top: -40px;
+  }
+
+  .primary{
+    color: green;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid green;
+    padding: 10px 20px;
+    font-size: 17px;
+    font-weight: bold;
+    background: transparent;
+    position: relative;
+    transition: all 1s;
+    overflow: hidden;
+  }
+  .primary:hover {
+    color: lightgreen;
+  }
+  
+  /* .ng-invalid.ng-untouched{
+    border-color: red;
+  } */
